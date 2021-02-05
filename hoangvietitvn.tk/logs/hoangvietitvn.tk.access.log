@@ -27,3 +27,4 @@
 139.162.163.167 - - [05/Feb/2021:07:01:07 +0000] "\x09\x12;Bo3\xA2D\xFD\x01\x86si=\xAE\x12\xBB\xC6\x19\xFD\x1A:\xF3\x11\xC9\xAE\xDA<0\xBC8\x81\x9E\x00\x0F\xCAN\xFB\x05\xC6\xDE\xB7<oN\x01\xA2\x87\x82\xF5/\x8E\xED*\x1F\x0E\xB7C\x0C\xA04]\xBD\x80PVf\x1A\x11\xAF\xF5\xC8\xA3\x16+b\xB1\xD7" 400 157 "-" "-" "-" "-"
 192.155.91.158 - - [05/Feb/2021:07:01:09 +0000] "GET / HTTP/1.0" 404 153 "-" "-" "-" "-"
 185.224.129.247 - - [05/Feb/2021:08:30:20 +0000] "GET /config/getuser?index=0 HTTP/1.1" 404 47 "-" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:76.0) Gecko/20100101 Firefox/76.0" "-" "0.44"
+104.152.52.39 - - [05/Feb/2021:08:32:15 +0000] "GET / HTTP/1.0" 404 16 "-" "masscan/1.0 (https://github.com/robertdavidgraham/masscan)" "-" "-"
