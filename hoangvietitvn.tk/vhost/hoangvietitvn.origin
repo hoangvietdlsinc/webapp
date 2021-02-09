@@ -1,0 +1,66 @@
+server {
+  listen [::]:80;
+  listen      80;
+  server_name hoangvietitvn.tk www.hoangvietitvn.tk;
+
+  # Redirect all non-https requests
+  location / {
+      return 301 https://hoangvietitvn.tk$request_uri;
+  }
+  }
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name hoangvietitvn.tk www.hoangvietitvn.tk;
+    ssl_certificate /var/www/webapp/hoangvietitvn.tk/ssl/hoangvietitvn.tk/fullchain.cer;
+    ssl_certificate_key /var/www/webapp/hoangvietitvn.tk/ssl/hoangvietitvn.tk/hoangvietitvn.tk.key;
+    ssl_trusted_certificate /var/www/webapp/hoangvietitvn.tk/ssl/hoangvietitvn.tk/ca.cer;
+    ssl_dhparam /var/www/webapp/hoangvietitvn.tk/ssl/hoangvietitvn.tk/dhparam.pem;
+    
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+    ssl_session_timeout 1d;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_tickets off;
+    ssl_stapling on;
+    ssl_stapling_verify on;
+    resolver 1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4;
+    include /var/www/webapp/hoangvietitvn.tk/vhost/security_headers.conf;
+    gzip on;
+    gzip_types      text/plain application/xml;
+    gzip_proxied    no-cache no-store private expired auth;
+    gzip_min_length 1000;
+    
+    access_log /var/www/webapp/hoangvietitvn.tk/logs/hoangvietitvn.tk.access.log compression;
+    error_log /var/www/webapp/hoangvietitvn.tk/logs/hoangvietitvn.tk.error.log warn;
+  
+    location / {
+        root   /var/www/webapp/hoangvietitvn.tk/public_html;
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /index.php?q=$uri&$args;
+        #allow 1.52.142.169;
+        #allow 27.72.103.120;
+        #deny all;
+    }
+
+    error_page  404              /404.html;
+    location = /404.html {
+        root   /var/www/webapp/hoangvietitvn.tk/public_html;
+    }
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /var/www/webapp/hoangvietitvn.tk/public_html;
+    }
+
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    
+    location ~ \.php$ {
+        root           /var/www/webapp/hoangvietitvn.tk/public_html;
+        fastcgi_pass   unix:/run/php-fpm/www.sock;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME   $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+    }
+}
